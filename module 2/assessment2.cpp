@@ -54,7 +54,7 @@ void calculateCost()
   totalFoodCost= numOfGuest*CostOfDinner;
   averageCostPerPerson= totalFoodCost/numOfGuest;
   totalCost = totalFoodCost + (CostForOneServer * numOfServer);
-  deposit_amount = totalCost*0.25<<"Rupees"<<endl;
+  deposit_amount = totalCost*0.25<<endl;
   
 }
 
@@ -72,7 +72,7 @@ void display_details()
 	cout<<"\n";
 	cout<<"\nTotal cost is : "<<totalCost<<endl;
 	cout<<"\nPlease deposit a 25% deposit to reserve the event";
-	cout<<"\nThe deposit needed is : "<<deposit_amount<<endl;
+	cout<<"\nThe deposit needed is : "<<deposit_amount<<"Rupees"<<endl;
 }
 };
 int main()
