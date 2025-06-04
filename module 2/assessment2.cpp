@@ -54,7 +54,7 @@ void calculateCost()
   totalFoodCost= numOfGuest*CostOfDinner;
   averageCostPerPerson= totalFoodCost/numOfGuest;
   totalCost = totalFoodCost + (CostForOneServer * numOfServer);
-  deposit_amount = totalCost*0.25<<endl;
+  deposit_amount = totalCost*0.25;
   
 }
 
