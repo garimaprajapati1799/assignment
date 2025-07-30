@@ -1,5 +1,0 @@
-CREATE TABLE Bank (
-    branch_id INT PRIMARY KEY,
-    branch_name VARCHAR(50),
-    branch_city VARCHAR(50)
-);
