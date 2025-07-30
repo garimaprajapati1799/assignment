@@ -1,0 +1,442 @@
+1.Introduction to SQL:
+Lab1:
+create schema school_db;
+create table students(
+student_id int not null unique,
+student_name varchar(25),
+age int,
+class varchar(25),
+address varchar(25)
+);
+-------------------------------------------------------------------------------------------------
+Lab2:
+insert into students values (101,"Aman",10,"sixth","Jhansi");
+insert into students values (102,"Garima",10,"sixth","Ujjain");
+insert into students values (103,"Rahul",14,"tenth","Bhopal");
+insert into students values (104,"Heera",9,"fifth","Indore");
+insert into students values (105,"Gir",16,"Eleventh","Dewas");
+--------------------------------------------------------------------------------------------------
+2.SQL Syntax:
+Lab1:
+select student_name,age from students;
+select *from students where age>10; 
+---------------------------------------------------------------------------------------------------
+3.SQL constraints
+Lab 1:
+create table teachers(
+teacher_id int primary key,
+teacher_name varchar(25) not null,
+subject varchar(15) not null,
+email varchar(40) not null unique);
+alter table students
+add constraint fk_constraint_teacher
+foreign key (teacher_id)
+references teachers(teacher_id);
+-----------------------------------------------------------------------------------------------------
+4.Main SQL Commands and Sub-commands (DDL)
+Lab1:
+create table courses(
+course_id int primary key,
+course_name varchar(25) not null,
+course_credit varchar(25) not null);
+-----------------------------------------------------------------------------------------------------
+5.ALTER COmmand
+LAB 1:
+alter table courses add column course_duration int not null;
+alter table courses drop column course_credit;
+-----------------------------------------------------------------------------------------------------
+6.DROP Command
+LAB1:
+drop table teachers;
+LAB2:
+drop table students; 
+describe students;
+describe teachers;
+-----------------------------------------------------------------------------------------------------
+7.DATA MANIPULATION LANGUAGE
+LAB1:
+insert into courses values(101,"B.Tech",4);
+insert into courses values(102,"B.Sc",3);
+insert into courses values(103,"BCA",3);
+LAB2:
+update courses set course_duration=4 where course_id=103;
+LAB3:
+delete from courses  where course_id=103; 
+-----------------------------------------------------------------------------------------------------
+8. Data Query Language (DQL)
+LAB1:
+select *from courses;
+LAB2:
+select *from courses order by course_id desc;
+LAB3:
+select *from courses course_id limit 2;
+-----------------------------------------------------------------------------------------------------
+9. Data Control Language (DCL)
+LAB1:
+grant select on courses to user1,user2;
+grant insert on courses to user1;
+revoke insert on courses from  user1;
+grant insert on courses to user2;
+----------------------------------------------------------------------------------------------------
+10. Transaction Control Language (TCL)
+LAB1:
+insert into courses values(101,"B.Tech",4);
+insert into courses values(102,"B.Sc",3);
+insert into courses values(103,"BCA",3);
+commit;
+insert into courses values(104,"B.Tech",4);
+LAB2:
+rollback;
+select *from courses;
+LAB3:
+savepoint s1;
+delete from courses where course_id=101;
+savepoint s2;
+delete from courses where course_id=102;
+savepoint s3;
+delete from courses where course_id=103;
+rollback to s1;
+rollback to s2;
+rollback to s3;
+-----------------------------------------------------------------------------------------------------
+11.SQL Joins
+LAB1:
+create table departments(
+department_id int not null unique,
+department_name varchar(10) not null
+);
+alter table employees add column department_id int not null;
+create table employees(employee_id int not null unique,
+employee_name varchar(25) not null,
+salary int not null);
+insert into departments values(111,"A");
+insert into departments values(113,"B");
+insert into departments values(110,"C");
+insert into employees values(11,"Aman Vardia",100000,111);
+insert into employees values(22,"Garima Prajapati",50000,111);
+insert into employees values(15,"Jils Kund",60000,113);
+select *from employees;
+select *from departments;
+select employees.employee_name,departments.department_name
+from employees inner join departments
+on employees.department_id= departments.department_id;
+LAB2:
+ select *from departments d left join employees e
+ on d.department_id = e.department_id;
+---------------------------------------------------------------------------------------------------------
+12.SQL Group By
+LAB1:
+select count(*), department_id from employees group by department_id;
+LAB2:
+select avg(salary),department_id from employees group by department_id;
+-----------------------------------------------------------------------------------------------------------
+13.SQL Stored procedure
+LAB1:
+CREATE TABLE employees (
+    employee_id INT PRIMARY KEY,
+    name VARCHAR(100),
+    job_title VARCHAR(100),
+    department_id INT,
+    salary DECIMAL(10, 2)
+);
+DELIMITER //
+CREATE PROCEDURE GetEmployeesByDepartment(IN dept_id INT)
+BEGIN
+    SELECT * FROM employees
+    WHERE department_id = dept_id;
+END //
+
+DELIMITER ;
+CALL GetEmployeesByDepartment(3);
+LAB2:
+CREATE TABLE courses (
+    course_id INT PRIMARY KEY,
+    course_name VARCHAR(100),
+    course_description TEXT,
+    course_duration INT,
+    course_fee DECIMAL(10,2)
+);
+DELIMITER &&
+CREATE PROCEDURE GetCourseDetails(IN input_course_id INT)
+BEGIN
+    SELECT * FROM courses
+    WHERE course_id = input_course_id;
+END &&
+
+DELIMITER ;
+--------------------------------------------------------------------------------------------------------------
+14. SQL View
+LAB1:
+CREATE VIEW employee_department_view AS
+SELECT 
+    e.employee_id,
+    e.name AS employee_name,
+    e.job_title,
+    d.department_name
+FROM 
+    employees e
+JOIN 
+    departments d ON e.department_id = d.department_id;
+LAB2:
+CREATE VIEW employee_department_view AS
+SELECT 
+    e.employee_id,
+    e.name AS employee_name,
+    e.job_title,
+    d.department_name
+FROM 
+    employees e
+JOIN 
+    departments d ON e.department_id = d.department_id;
+    DROP VIEW IF EXISTS EMPLOYEE_DEPARTMENT_VIEW;
+    CREATE VIEW employee_department_view AS
+SELECT 
+    e.employee_id,
+    e.name AS employee_name,
+    e.job_title,
+    e.salary,
+    d.department_name
+FROM 
+    employees e
+JOIN 
+    departments d ON e.department_id = d.department_id
+WHERE 
+    e.salary >= 50000;
+----------------------------------------------------------------------------------------------------------------
+15. SQL Triggers
+LAB1:
+CREATE TABLE employee_log (
+    log_id INT AUTO_INCREMENT PRIMARY KEY,
+    employee_id INT,
+    name VARCHAR(100),
+    job_title VARCHAR(100),
+    department_id INT,
+    salary DECIMAL(10,2),
+    action_type VARCHAR(10),
+    action_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+DELIMITER &&
+
+CREATE TRIGGER after_employee_insert
+AFTER INSERT ON employees
+FOR EACH ROW
+BEGIN
+    INSERT INTO employee_log (
+        employee_id, name, job_title, department_id, salary, action_type
+    )
+    VALUES (
+        NEW.employee_id, NEW.name, NEW.job_title, NEW.department_id, NEW.salary, 'INSERT'
+    );
+END &&
+
+DELIMITER ;
+LAB2:
+DELIMITER &&
+
+CREATE TRIGGER before_employee_update
+BEFORE UPDATE ON employees
+FOR EACH ROW
+BEGIN
+    SET NEW.last_modified = CURRENT_TIMESTAMP;
+END &&
+
+DELIMITER ;
+-------------------------------------------------------------------------------------------------------------------------
+16.. Introduction to PL/SQL
+LAB1:
+SET SERVEROUTPUT ON;
+
+DECLARE
+    v_total_employees NUMBER;
+BEGIN
+    -- Get total count from employees table
+    SELECT COUNT(*) INTO v_total_employees
+    FROM employees;
+
+    -- Display the result
+    DBMS_OUTPUT.PUT_LINE('Total number of employees: ' || v_total_employees);
+END;
+/
+LAB2:
+SET SERVEROUTPUT ON;
+
+DECLARE
+    v_total_sales NUMBER(10,2);  -- Variable to store total sales
+BEGIN
+    -- Calculate total sales
+    SELECT SUM(order_amount) INTO v_total_sales
+    FROM orders;
+
+    -- Display total sales
+    DBMS_OUTPUT.PUT_LINE('Total Sales: ₹' || v_total_sales);
+END;
+/
+----------------------------------------------------------------------------------------------------------------------
+17. PL/SQL Control Structures
+LAB1:
+DECLARE
+    v_employee_id    employees.employee_id%TYPE := 101;  
+    v_department_id  employees.department_id%TYPE;
+BEGIN
+
+    SELECT department_id INTO v_department_id
+    FROM employees
+    WHERE employee_id = v_employee_id;
+
+
+    IF v_department_id = 10 THEN
+        DBMS_OUTPUT.PUT_LINE('Employee works in HR department.');
+    ELSIF v_department_id = 20 THEN
+        DBMS_OUTPUT.PUT_LINE('Employee works in Finance department.');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Employee works in another department.');
+    END IF;
+END;
+/
+LAB2:
+SET SERVEROUTPUT ON;
+
+DECLARE
+    -- Declare a record variable matching the row structure of employees
+    CURSOR emp_cursor IS
+        SELECT employee_id, name
+        FROM employees;
+
+BEGIN
+    -- Loop through each employee
+    FOR emp_rec IN emp_cursor LOOP
+        DBMS_OUTPUT.PUT_LINE('Employee ID: ' || emp_rec.employee_id || ', Name: ' || emp_rec.name);
+    END LOOP;
+END;
+/
+--------------------------------------------------------------------------------------------------------------
+18.SQL Cursors
+LAB1:
+SET SERVEROUTPUT ON;
+
+DECLARE
+    
+    CURSOR emp_cursor IS
+        SELECT employee_id, name, department_id, salary
+        FROM employees;
+
+    -- Step 2: Declare variables to hold fetched values
+    v_emp_id        employees.employee_id%TYPE;
+    v_emp_name      employees.name%TYPE;
+    v_dept_id       employees.department_id%TYPE;
+    v_salary        employees.salary%TYPE;
+
+BEGIN
+    
+    OPEN emp_cursor;
+
+    -- Step 4: Loop through each row
+    LOOP
+        FETCH emp_cursor INTO v_emp_id, v_emp_name, v_dept_id, v_salary;
+        EXIT WHEN emp_cursor%NOTFOUND;
+
+              DBMS_OUTPUT.PUT_LINE(
+            'ID: ' || v_emp_id || 
+            ', Name: ' || v_emp_name || 
+            ', Dept: ' || v_dept_id || 
+            ', Salary: ₹' || v_salary);
+    END LOOP;
+
+
+    CLOSE emp_cursor;
+END;
+/
+LAB2:
+SET SERVEROUTPUT ON;
+
+DECLARE
+  
+    CURSOR course_cursor IS
+        SELECT course_id, course_name, duration, instructor
+        FROM courses;
+
+   
+    v_course_id     courses.course_id%TYPE;
+    v_course_name   courses.course_name%TYPE;
+    v_duration      courses.duration%TYPE;
+    v_instructor    courses.instructor%TYPE;
+
+BEGIN
+    
+    OPEN course_cursor;
+
+
+    LOOP
+        FETCH course_cursor INTO v_course_id, v_course_name, v_duration, v_instructor;
+        EXIT WHEN course_cursor%NOTFOUND;
+
+        
+        DBMS_OUTPUT.PUT_LINE('Course ID: ' || v_course_id);
+        DBMS_OUTPUT.PUT_LINE('Course Name: ' || v_course_name);
+        DBMS_OUTPUT.PUT_LINE('Duration: ' || v_duration);
+        DBMS_OUTPUT.PUT_LINE('Instructor: ' || v_instructor);
+        DBMS_OUTPUT.PUT_LINE('-------------------------------');
+    END LOOP;
+
+   
+    CLOSE course_cursor;
+END;
+/
+----------------------------------------------------------------------------------------------------------------------------
+19. Rollback and Commit Savepoint
+LAB1:
+SET SERVEROUTPUT ON;
+
+BEGIN
+    INSERT INTO students (student_id, name, course)
+    VALUES (101, 'Amit Sharma', 'Mathematics');
+
+    DBMS_OUTPUT.PUT_LINE('Inserted first record.');
+
+
+    SAVEPOINT before_second_insert;
+
+
+    INSERT INTO students (student_id, name, course)
+    VALUES (102, 'Nikita Verma', 'Science');
+
+    DBMS_OUTPUT.PUT_LINE('Inserted second record.');
+
+    ROLLBACK TO before_second_insert;
+
+    DBMS_OUTPUT.PUT_LINE('Rolled back to the savepoint. Second insert undone.');
+
+    COMMIT;
+
+    DBMS_OUTPUT.PUT_LINE('Transaction committed.');
+END;
+/
+LAB2:
+SET SERVEROUTPUT ON;
+
+BEGIN
+    INSERT INTO students (student_id, name, course)
+    VALUES (201, 'Ravi Kumar', 'Physics');
+    DBMS_OUTPUT.PUT_LINE('Inserted Ravi.');
+
+    SAVEPOINT first_save;
+
+    INSERT INTO students (student_id, name, course)
+    VALUES (202, 'Sneha Sharma', 'Chemistry');
+    DBMS_OUTPUT.PUT_LINE('Inserted Sneha.');
+    COMMIT;
+    DBMS_OUTPUT.PUT_LINE('Committed first part of the transaction.');
+    INSERT INTO students (student_id, name, course)
+    VALUES (203, 'Aditya Jain', 'Maths');
+    DBMS_OUTPUT.PUT_LINE('Inserted Aditya.');
+
+    -- Rollback the third insert
+    ROLLBACK;
+    DBMS_OUTPUT.PUT_LINE('Rolled back remaining uncommitted changes.');
+
+END;
+/
+----------------------------------------------------------------------------------------------------------------------
+ 
+
+
