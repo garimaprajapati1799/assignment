@@ -1,0 +1,54 @@
+CREATE TABLE Bank (
+    branch_id INT PRIMARY KEY,
+    branch_name VARCHAR(50),
+    branch_city VARCHAR(50)
+);
+CREATE TABLE Account_Holder (
+    account_holder_id INT PRIMARY KEY,
+    account_no BIGINT UNIQUE NOT NULL,
+    holder_name VARCHAR(100),
+    city VARCHAR(50),
+    contact VARCHAR(15),
+    date_of_account_created DATE,
+    account_status VARCHAR(20), 
+    account_type VARCHAR(20),
+    balance DECIMAL(10,2)
+);
+CREATE TABLE Loan (
+    loan_no INT PRIMARY KEY,
+    branch_id INT,
+    account_holder_id INT,
+    loan_amount DECIMAL(10,2),
+    loan_type VARCHAR(50),
+    FOREIGN KEY (branch_id) REFERENCES Bank(branch_id),
+    FOREIGN KEY (account_holder_id) REFERENCES Account_Holder(account_holder_id)
+);
+START TRANSACTION;
+UPDATE Account_Holder
+SET balance = balance - 100
+WHERE account_no = 1001;
+UPDATE Account_Holder
+SET balance = balance + 100
+WHERE account_no = 1002;
+
+COMMIT;
+SELECT * FROM Account_Holder ah1
+WHERE EXISTS (
+    SELECT 1 FROM Account_Holder ah2
+    WHERE ah1.city = ah2.city AND ah1.account_holder_id <> ah2.account_holder_id
+);
+SELECT account_no, holder_name
+FROM Account_Holder
+WHERE DAY(date_of_account_created) > 15;
+SELECT branch_city AS City, COUNT(*) AS Count_Branch
+FROM Bank
+GROUP BY branch_city;
+SELECT 
+    ah.account_holder_id,
+    ah.holder_name,
+    l.branch_id,
+    l.loan_amount
+FROM 
+    Account_Holder ah
+JOIN 
+    Loan l ON ah.account_holder_id = l.account_holder_id;
