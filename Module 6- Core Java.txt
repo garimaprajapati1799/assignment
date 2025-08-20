@@ -1,0 +1,1549 @@
+Introduction to java
+
+Write a simple "Hello World" Java program
+
+public class HelloWorld {
+    public static void main(String[] args) {
+        System.out.println("Hello, World!");
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------
+2. Data Types, Variables, and Operators
+
+Write a program to demonstrate the use of different data types.
+
+public class DataTypesDemo {
+    public static void main(String[] args) {
+        
+        
+        int age = 25;
+        System.out.println("Age (int): " + age);
+
+   
+        double salary = 55000.75;
+        System.out.println("Salary (double): " + salary);
+
+
+        char grade = 'A';
+        System.out.println("Grade (char): " + grade);
+
+        
+        boolean isJavaFun = true;
+        System.out.println("Is Java fun? (boolean): " + isJavaFun);
+
+        
+        byte smallNumber = 120;
+        System.out.println("Small number (byte): " + smallNumber);
+
+
+        short shortNumber = 32000;
+        System.out.println("Short number (short): " + shortNumber);
+
+
+        long bigNumber = 1234567890L;
+        System.out.println("Big number (long): " + bigNumber);
+
+        
+        float pi = 3.14f;
+        System.out.println("Value of Pi (float): " + pi);
+
+       
+        String name = "Garima";
+        System.out.println("Name (String): " + name);
+    }
+}
+
+-----------------------------------------------------------------------------------------------------------------------------
+Create a calculator using arithmetic and relational operators.
+import java.util.Scanner;
+
+public class Calculator {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+      
+        System.out.print("Enter first number: ");
+        int num1 = sc.nextInt();
+
+        System.out.print("Enter second number: ");
+        int num2 = sc.nextInt();
+
+        
+        System.out.println("\n--- Arithmetic Operations ---");
+        System.out.println(num1 + " + " + num2 + " = " + (num1 + num2));
+        System.out.println(num1 + " - " + num2 + " = " + (num1 - num2));
+        System.out.println(num1 + " * " + num2 + " = " + (num1 * num2));
+        
+             if (num2 != 0) {
+            System.out.println(num1 + " / " + num2 + " = " + (num1 / num2));
+            System.out.println(num1 + " % " + num2 + " = " + (num1 % num2));
+        } else {
+            System.out.println("Division and Modulus not possible (divisor is 0).");
+        }
+
+        // Relational operations
+        System.out.println("\n--- Relational Operations ---");
+        System.out.println(num1 + " == " + num2 + " : " + (num1 == num2));
+        System.out.println(num1 + " != " + num2 + " : " + (num1 != num2));
+        System.out.println(num1 + " > " + num2 + " : " + (num1 > num2));
+        System.out.println(num1 + " < " + num2 + " : " + (num1 < num2));
+        System.out.println(num1 + " >= " + num2 + " : " + (num1 >= num2));
+        System.out.println(num1 + " <= " + num2 + " : " + (num1 <= num2));
+
+        sc.close();
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------
+Demonstrate type casting (explicit and implicit)
+public class TypeCastingDemo {
+    public static void main(String[] args) {
+
+       
+        int intNum = 100;
+        double doubleNum = intNum;  
+
+        System.out.println("Implicit Casting (Widening):");
+        System.out.println("int value: " + intNum);
+        System.out.println("double value (after casting): " + doubleNum);
+
+
+        double d = 99.99;
+        int i = (int) d;   // double explicitly cast to int
+
+        System.out.println("\nExplicit Casting (Narrowing):");
+        System.out.println("double value: " + d);
+        System.out.println("int value (after casting): " + i);
+
+        
+        char ch = 'A';
+        int ascii = ch; 
+        char letter = (char) 66;
+
+        System.out.println("\nChar Casting:");
+        System.out.println("char 'A' as int: " + ascii);
+        System.out.println("int 66 as char: " + letter);
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------
+3. Control Flow Statements
+
+Write a program to find if a number is even or odd using an if-else statement.
+import java.util.Scanner;
+
+public class EvenOddCheck {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        
+        System.out.print("Enter a number: ");
+        int num = sc.nextInt();
+
+
+        if (num % 2 == 0) {
+            System.out.println(num + " is Even.");
+        } else {
+            System.out.println(num + " is Odd.");
+        }
+
+        sc.close();
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------Implement a simple menu-driven program using a switch-case.
+import java.util.Scanner;
+
+public class MenuDrivenCalculator {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        int choice;
+        do {
+            // Menu Display
+            System.out.println("\n--- Calculator Menu ---");
+            System.out.println("1. Addition");
+            System.out.println("2. Subtraction");
+            System.out.println("3. Multiplication");
+            System.out.println("4. Division");
+            System.out.println("5. Exit");
+            System.out.print("Enter your choice: ");
+            
+            choice = sc.nextInt();
+
+            if (choice >= 1 && choice <= 4) {
+                System.out.print("Enter first number: ");
+                int num1 = sc.nextInt();
+                System.out.print("Enter second number: ");
+                int num2 = sc.nextInt();
+
+                switch (choice) {
+                    case 1:
+                        System.out.println("Result = " + (num1 + num2));
+                        break;
+                    case 2:
+                        System.out.println("Result = " + (num1 - num2));
+                        break;
+                    case 3:
+                        System.out.println("Result = " + (num1 * num2));
+                        break;
+                    case 4:
+                        if (num2 != 0)
+                            System.out.println("Result = " + (num1 / num2));
+                        else
+                            System.out.println("Division by zero not allowed!");
+                        break;
+                }
+            } else if (choice != 5) {
+                System.out.println("Invalid choice! Please try again.");
+            }
+
+        } while (choice != 5);
+
+        System.out.println("Exiting... Thank you!");
+        sc.close();
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------
+Write a program to display the Fibonacci series using a loop.
+import java.util.Scanner;
+
+public class FibonacciSeries {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        
+        System.out.print("Enter number of terms: ");
+        int n = sc.nextInt();
+
+        int first = 0, second = 1;
+
+        System.out.println("\nFibonacci Series up to " + n + " terms:");
+
+        for (int i = 1; i <= n; i++) {
+            System.out.print(first + " ");
+            
+            // calculate next term
+            int next = first + second;
+            first = second;
+            second = next;
+        }
+
+        sc.close();
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------
+Create a class Student with attributes (name, age) and a method to display thedetails.
+public class Student {
+   
+    String name;
+    int age;
+
+
+    public Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+ 
+    public void displayDetails() {
+        System.out.println("Student Name: " + name);
+        System.out.println("Student Age: " + age);
+    }
+
+
+    public static void main(String[] args) {
+        // Create Student objects
+        Student s1 = new Student("Garima", 20);
+        Student s2 = new Student("Anshu", 22);
+
+        // Display details
+        s1.displayDetails();
+        System.out.println("------------------");
+        s2.displayDetails();
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------
+Create multiple constructors in a class and demonstrate constructor overloading.
+public class Student {
+    String name;
+    int age;
+
+    
+    public Student() {
+        name = "Unknown";
+        age = 0;
+    }
+
+
+    public Student(String name) {
+        this.name = name;
+        this.age = 0; // default age
+    }
+
+   
+    public Student(int age) {
+        this.name = "Unknown"; // default name
+        this.age = age;
+    }
+
+    
+    public Student(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+
+    public void displayDetails() {
+        System.out.println("Name: " + name + ", Age: " + age);
+    }
+
+
+    public static void main(String[] args) {
+        Student s1 = new Student();              
+        Student s2 = new Student("Garima");      
+        Student s3 = new Student(21);            
+        Student s4 = new Student("Anshu", 22);  
+        s1.displayDetails();
+        s2.displayDetails();
+        s3.displayDetails();
+        s4.displayDetails();
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------
+Implement a simple class with getters and setters for encapsulation
+public class Student {
+       private String name;
+    private int age;
+
+    
+    public String getName() {
+        return name;
+    }
+
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+
+    public int getAge() {
+        return age;
+    }
+
+    
+    public void setAge(int age) {
+        if (age > 0) {  // validation
+            this.age = age;
+        } else {
+            System.out.println("Age must be positive!");
+        }
+    }
+
+
+    public void displayDetails() {
+        System.out.println("Name: " + name + ", Age: " + age);
+    }
+
+    
+    public static void main(String[] args) {
+        Student s = new Student();
+
+        
+        s.setName("Garima");
+        s.setAge(20);
+
+        
+        System.out.println("Student Name: " + s.getName());
+        System.out.println("Student Age: " + s.getAge());
+
+        
+        s.displayDetails();
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------
+5. Methods in Java
+Write a program to find the maximum of three numbers using a method.
+import java.util.Scanner;
+
+public class MaxOfThree {
+
+    
+    public static int findMax(int a, int b, int c) {
+        int max = a;
+
+        if (b > max) {
+            max = b;
+        }
+        if (c > max) {
+            max = c;
+        }
+
+        return max;
+    }
+
+  
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        
+        System.out.print("Enter first number: ");
+        int num1 = sc.nextInt();
+
+        System.out.print("Enter second number: ");
+        int num2 = sc.nextInt();
+
+        System.out.print("Enter third number: ");
+        int num3 = sc.nextInt();
+
+    
+        int max = findMax(num1, num2, num3);
+
+        
+        System.out.println("The maximum of the three numbers is: " + max);
+
+        sc.close();
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------
+Implement method overloading by creating methods for different data types.
+import java.util.Scanner;
+
+public class MaxOfThreeUsingMath {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        
+        System.out.print("Enter first number: ");
+        int num1 = sc.nextInt();
+
+        System.out.print("Enter second number: ");
+        int num2 = sc.nextInt();
+
+        System.out.print("Enter third number: ");
+        int num3 = sc.nextInt();
+
+        
+        int max = Math.max(num1, Math.max(num2, num3));
+
+      
+        System.out.println("The maximum of the three numbers is: " + max);
+
+        sc.close();
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------
+Create a class with static variables and methods to demonstrate their use
+import java.util.Scanner;
+
+public class MaxOfThreeUsingMath {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+
+        System.out.print("Enter first number: ");
+        int num1 = sc.nextInt();
+
+        System.out.print("Enter second number: ");
+        int num2 = sc.nextInt();
+
+        System.out.print("Enter third number: ");
+        int num3 = sc.nextInt();
+
+   
+        int max = Math.max(num1, Math.max(num2, num3));
+
+        
+        System.out.println("The maximum of the three numbers is: " + max);
+
+        sc.close();
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------
+6. Object-Oriented Programming (OOPs) Concepts
+Write a program demonstrating single inheritance.
+
+class Person {
+    String name;
+    int age;
+
+    void displayPerson() {
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+    }
+}
+
+
+class Student extends Person {
+    int rollNo;
+
+    void displayStudent() {
+  
+        displayPerson();
+        System.out.println("Roll No: " + rollNo);
+    }
+}
+
+
+public class SingleInheritanceDemo {
+    public static void main(String[] args) {
+       
+        Student s1 = new Student();
+        s1.name = "Garima";
+        s1.age = 20;
+        s1.rollNo = 101;
+
+  
+        s1.displayStudent();
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------
+Create a class hierarchy and demonstrate multilevel inheritance.
+class Person {
+    String name;
+    int age;
+
+    void displayPerson() {
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+    }
+}
+
+
+class Student extends Person {
+    int rollNo;
+
+    void displayStudent() {
+        displayPerson(); 
+        System.out.println("Roll No: " + rollNo);
+    }
+}
+
+class GraduateStudent extends Student {
+    String specialization;
+
+    void displayGraduateStudent() {
+        displayStudent(); 
+        System.out.println("Specialization: " + specialization);
+    }
+}
+
+
+public class MultilevelInheritanceDemo {
+    public static void main(String[] args) {
+        GraduateStudent g1 = new GraduateStudent();
+
+ 
+        g1.name = "Garima";
+        g1.age = 22;
+        g1.rollNo = 101;
+        g1.specialization = "Computer Science";
+
+       
+        g1.displayGraduateStudent();
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------
+Implement method overriding to show polymorphism in action.
+class Animal {
+    void sound() {
+        System.out.println("Animal makes a sound");
+    }
+}
+
+
+class Dog extends Animal {
+    @Override
+    void sound() {
+        System.out.println("Dog barks");
+    }
+}
+
+
+class Cat extends Animal {
+    @Override
+    void sound() {
+        System.out.println("Cat meows");
+    }
+}
+
+// Main class to demonstrate Polymorphism
+public class PolymorphismDemo {
+    public static void main(String[] args) {
+       
+        Animal a;
+
+        a = new Dog();  
+        a.sound();       
+
+        a = new Cat();   
+        a.sound();       
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------
+7. Constructors and Destructors
+Write a program to create and initialize an object using a parameterized constructor.
+class Student {
+    String name;
+    int age;
+
+
+    Student(String n, int a) {
+        name = n;
+        age = a;
+    }
+
+    void display() {
+        System.out.println("Name: " + name + ", Age: " + age);
+    }
+}
+
+// Main class
+public class ParameterizedConstructorDemo {
+    public static void main(String[] args) {
+        
+        Student s1 = new Student("Garima", 21);
+        Student s2 = new Student("Ankit", 22);
+
+        
+        s1.display();
+        s2.display();
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------
+Demonstrate constructor overloading by passing different types of parameters.
+class Person {
+    String name;
+    int age;
+    double height;
+
+    Person() {
+        name = "Unknown";
+        age = 0;
+        height = 0.0;
+    }
+
+    
+    Person(String n) {
+        name = n;
+        age = 0;
+        height = 0.0;
+    }
+
+    
+    Person(String n, int a) {
+        name = n;
+        age = a;
+        height = 0.0;
+    }
+
+   
+    Person(String n, int a, double h) {
+        name = n;
+        age = a;
+        height = h;
+    }
+
+
+    void display() {
+        System.out.println("Name: " + name + ", Age: " + age + ", Height: " + height);
+    }
+}
+
+public class ConstructorOverloadingDemo {
+    public static void main(String[] args) {
+                Person p1 = new Person();
+        Person p2 = new Person("Garima");
+        Person p3 = new Person("Ankit", 22);
+        Person p4 = new Person("Rahul", 25, 5.9);
+
+        
+        p1.display();
+        p2.display();
+        p3.display();
+        p4.display();
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------
+8. Arrays and Strings
+Write a program to perform matrix addition and subtraction using 2D arrays.
+import java.util.Scanner;
+
+public class MatrixOperations {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+
+        System.out.print("Enter number of rows: ");
+        int rows = sc.nextInt();
+        System.out.print("Enter number of columns: ");
+        int cols = sc.nextInt();
+
+     
+        int[][] A = new int[rows][cols];
+        int[][] B = new int[rows][cols];
+        int[][] sum = new int[rows][cols];
+        int[][] diff = new int[rows][cols];
+
+
+        System.out.println("Enter elements of Matrix A:");
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                A[i][j] = sc.nextInt();
+            }
+        }
+
+        
+        System.out.println("Enter elements of Matrix B:");
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                B[i][j] = sc.nextInt();
+            }
+        }
+
+                for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                sum[i][j] = A[i][j] + B[i][j];
+                diff[i][j] = A[i][j] - B[i][j];
+            }
+        }
+
+                System.out.println("\nMatrix A:");
+        printMatrix(A);
+
+        System.out.println("\nMatrix B:");
+        printMatrix(B);
+
+        System.out.println("\nSum of Matrices (A + B):");
+        printMatrix(sum);
+
+        System.out.println("\nDifference of Matrices (A - B):");
+        printMatrix(diff);
+
+        sc.close();
+    }
+
+    
+    public static void printMatrix(int[][] matrix) {
+        for (int[] row : matrix) {
+            for (int val : row) {
+                System.out.print(val + " ");
+            }
+            System.out.println();
+        }
+    }
+}
+----------------------------------------------------------------------------------------------------------------------------o Create a program to reverse a string and check for palindromes.
+import java.util.Scanner;
+
+public class PalindromeCheck {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+               System.out.print("Enter a string: ");
+        String str = sc.nextLine();
+
+                String reversed = "";
+        for (int i = str.length() - 1; i >= 0; i--) {
+            reversed += str.charAt(i);
+        }
+
+                System.out.println("Reversed String: " + reversed);
+
+                if (str.equalsIgnoreCase(reversed)) {
+            System.out.println("The string is a palindrome.");
+        } else {
+            System.out.println("The string is NOT a palindrome.");
+        }
+
+        sc.close();
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------
+Implement string comparison using equals() and compareTo() methods.
+import java.util.Scanner;
+
+public class StringComparison {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+               System.out.print("Enter first string: ");
+        String str1 = sc.nextLine();
+
+        System.out.print("Enter second string: ");
+        String str2 = sc.nextLine();
+
+        // Compare using equals()
+        if (str1.equals(str2)) {
+            System.out.println("Using equals(): Strings are EQUAL");
+        } else {
+            System.out.println("Using equals(): Strings are NOT equal");
+        }
+
+
+        int result = str1.compareTo(str2);
+        if (result == 0) {
+            System.out.println("Using compareTo(): Strings are EQUAL");
+        } else if (result > 0) {
+            System.out.println("Using compareTo(): First string is GREATER than second string");
+        } else {
+            System.out.println("Using compareTo(): First string is SMALLER than second string");
+        }
+
+        sc.close();
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------
+9. Inheritance and Polymorphism
+Write a program that demonstrates inheritance using extends keyword
+class Vehicle {
+    String brand = "Generic Vehicle";
+
+    void start() {
+        System.out.println(brand + " is starting...");
+    }
+
+    void stop() {
+        System.out.println(brand + " has stopped.");
+    }
+}
+
+class Car extends Vehicle {
+    int wheels = 4;
+
+    void display() {
+        System.out.println("Car brand: " + brand);
+        System.out.println("Number of wheels: " + wheels);
+    }
+}
+
+
+public class InheritanceDemo {
+    public static void main(String[] args) {
+        
+        Car myCar = new Car();
+
+        // Access methods and variables from parent class
+        myCar.brand = "Toyota";    
+        myCar.start();             
+        myCar.display();          
+        myCar.stop();            
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------
+Implement runtime polymorphism by overriding methods in the child class.
+class Vehicle {
+    void run() {
+        System.out.println("Vehicle is running");
+    }
+}
+
+
+class Car extends Vehicle {
+    @Override
+    void run() {
+        System.out.println("Car is running smoothly");
+    }
+}
+
+
+class Bike extends Vehicle {
+    @Override
+    void run() {
+        System.out.println("Bike is running fast");
+    }
+}
+
+
+public class RuntimePolymorphismDemo {
+    public static void main(String[] args) {
+        Vehicle v;   
+
+        v = new Car();   
+        v.run();         
+
+        v = new Bike();  
+        v.run();             }
+}
+-----------------------------------------------------------------------------------------------------------------------------
+Use the super keyword to call the parent class constructor and methods.
+class Animal {
+    String name;
+    Animal(String n) {
+        name = n;
+        System.out.println("Animal constructor called for: " + name);
+    }
+
+   
+    void sound() {
+        System.out.println(name + " makes a sound");
+    }
+}
+class Dog extends Animal {
+    String breed;
+
+    
+    Dog(String n, String b) {
+        super(n); // Call parent class constructor
+        breed = b;
+        System.out.println("Dog constructor called for breed: " + breed);
+    }
+
+
+    @Override
+    void sound() {
+        super.sound(); 
+        System.out.println(name + " barks");
+    }
+}
+
+
+public class SuperKeywordDemo {
+    public static void main(String[] args) {
+        Dog d = new Dog("Tommy", "Labrador");
+        d.sound();
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------
+10. Interfaces and Abstract Classes
+Create an abstract class and implement its methods in a subclass.
+abstract class Shape {
+        abstract void draw();
+
+
+    void display() {
+        System.out.println("This is a shape.");
+    }
+}
+
+
+class Circle extends Shape {
+    @Override
+    void draw() {
+        System.out.println("Drawing a Circle");
+    }
+}
+
+
+class Rectangle extends Shape {
+    @Override
+    void draw() {
+        System.out.println("Drawing a Rectangle");
+    }
+}
+
+// Main class
+public class AbstractClassDemo {
+    public static void main(String[] args) {
+        // Shape s = new Shape();  
+
+        Shape c = new Circle();    
+        c.display();               
+        c.draw();                  
+
+        Shape r = new Rectangle(); 
+        r.display();
+        r.draw();
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------
+Write a program that implements multiple interfaces in a single class.
+
+interface Drawable {
+    void draw();
+}
+
+
+interface Colorable {
+    void fillColor(String color);
+}
+
+
+class Shape implements Drawable, Colorable {
+    @Override
+    public void draw() {
+        System.out.println("Drawing a shape");
+    }
+
+    @Override
+    public void fillColor(String color) {
+        System.out.println("Filling the shape with " + color + " color");
+    }
+}
+
+public class MultipleInterfacesDemo {
+    public static void main(String[] args) {
+        Shape s = new Shape();
+        s.draw();
+        s.fillColor("Red");
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------
+Implement an interface for a real-world example, such as a payment gateway.
+interface PaymentGateway {
+    void processPayment(double amount);
+}
+
+
+class CreditCardPayment implements PaymentGateway {
+    @Override
+    public void processPayment(double amount) {
+        System.out.println("Processing credit card payment of ₹" + amount);
+    }
+}
+
+
+class PayPalPayment implements PaymentGateway {
+    @Override
+    public void processPayment(double amount) {
+        System.out.println("Processing PayPal payment of ₹" + amount);
+    }
+}
+
+
+class UpiPayment implements PaymentGateway {
+    @Override
+    public void processPayment(double amount) {
+        System.out.println("Processing UPI payment of ₹" + amount);
+    }
+}
+
+
+public class PaymentGatewayDemo {
+    public static void main(String[] args) {
+        PaymentGateway payment;
+        payment = new CreditCardPayment();
+        payment.processPayment(1500.00);
+
+     
+        payment = new PayPalPayment();
+        payment.processPayment(2500.75);
+
+
+        payment = new UpiPayment();
+        payment.processPayment(500.00);
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------
+11. Packages and Access Modifiers
+Create a user-defined package and import it into another program
+package mypackage;
+
+public class Calculator {
+    public int add(int a, int b) {
+        return a + b;
+    }
+
+    public int subtract(int a, int b) {
+        return a - b;
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------Demonstrate the use of different access modifiers within the same package andacross different packages.
+package mypackage;
+
+public class Example {
+    public String publicVar = "I am Public";         
+    protected String protectedVar = "I am Protected"; 
+    String defaultVar = "I am Default";               
+    private String privateVar = "I am Private";       
+    public void showAccess() {
+        System.out.println("Inside Example class:");
+        System.out.println(publicVar);
+        System.out.println(protectedVar);
+        System.out.println(defaultVar);
+        System.out.println(privateVar);
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------
+12. Exception Handling
+Write a program to demonstrate exception handling using try-catch-finally.
+public class ExceptionHandlingDemo {
+    public static void main(String[] args) {
+        try {
+            
+            int a = 10;
+            int b = 0;
+            int result = a / b;   // Division by zero → ArithmeticException
+            System.out.println("Result: " + result);
+        } 
+        catch (ArithmeticException e) {
+            
+            System.out.println("Error: Division by zero is not allowed.");
+        } 
+        catch (Exception e) {
+           
+            System.out.println("General Exception: " + e.getMessage());
+        } 
+        finally {
+          
+            System.out.println("Finally block executed: Closing resources if any.");
+        }
+
+        System.out.println("Program continues after exception handling...");
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------
+Implement multiple catch blocks for different types of exceptions
+public class MultipleCatchDemo {
+    public static void main(String[] args) {
+        try {
+            
+            int[] numbers = {10, 20, 30};
+            int a = numbers[3];        
+            int result = 10 / 0;       
+            System.out.println("Result: " + result);
+        } 
+        catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Error: Array index is out of bounds.");
+        } 
+        catch (ArithmeticException e) {
+            System.out.println("Error: Division by zero is not allowed.");
+        } 
+        catch (Exception e) {
+            System.out.println("General Exception: " + e.getMessage());
+        } 
+        finally {
+            System.out.println("Finally block executed: Cleaning up resources.");
+        }
+
+        System.out.println("Program continues after handling exceptions...");
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------
+Create a custom exception class and use it in your program.
+class InvalidAgeException extends Exception {
+    public InvalidAgeException(String message) {
+        super(message); 
+    }
+}
+import java.util.Scanner;
+
+public class CustomExceptionDemo {
+    
+    static void checkAge(int age) throws InvalidAgeException {
+        if (age < 18) {
+            throw new InvalidAgeException("Age must be at least 18 to vote.");
+        } else {
+            System.out.println("You are eligible to vote!");
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Enter your age: ");
+        int age = sc.nextInt();
+
+        try {
+            checkAge(age); // May throw custom exception
+        } catch (InvalidAgeException e) {
+            System.out.println("Custom Exception Caught: " + e.getMessage());
+        } finally {
+            System.out.println("Program finished.");
+        }
+
+        sc.close();
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------
+13. Multithreading
+Write a program to create and run multiple threads using the Thread class.
+class MyThread1 extends Thread {
+    public void run() {
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("Thread 1 - Count: " + i);
+            try {
+                Thread.sleep(500); 
+            } catch (InterruptedException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+}
+
+
+class MyThread2 extends Thread {
+    public void run() {
+        for (int i = 1; i <= 5; i++) {
+            System.out.println("Thread 2 - Count: " + i);
+            try {
+                Thread.sleep(500); 
+            } catch (InterruptedException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+}
+
+
+public class MultipleThreadsDemo {
+    public static void main(String[] args) {
+        MyThread1 t1 = new MyThread1();
+        MyThread2 t2 = new MyThread2();
+
+        // Start threads
+        t1.start();
+        t2.start();
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------
+Implement thread synchronization using synchronized blocks or methods.
+class Counter {
+    private int count = 0;
+
+
+    public synchronized void increment() {
+        count++;
+    }
+
+    public int getCount() {
+        return count;
+    }
+}
+
+// Thread class
+class MyThread extends Thread {
+    Counter counter;
+
+    MyThread(Counter counter) {
+        this.counter = counter;
+    }
+
+    public void run() {
+        for (int i = 0; i < 1000; i++) {
+            counter.increment();
+        }
+    }
+}
+
+// Main class
+public class SyncMethodDemo {
+    public static void main(String[] args) throws InterruptedException {
+        Counter c = new Counter();
+
+        MyThread t1 = new MyThread(c);
+        MyThread t2 = new MyThread(c);
+
+        t1.start();
+        t2.start();
+
+        t1.join(); 
+        t2.join(); 
+
+        System.out.println("Final Count: " + c.getCount());
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------
+Use inter-thread communication methods like wait(), notify(), and notifyAll().
+class SharedResource {
+    private int data;
+    private boolean hasData = false;
+
+
+    public synchronized void produce(int value) {
+        while (hasData) {
+            try {
+                wait(); 
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        data = value;
+        hasData = true;
+        System.out.println("Produced: " + data);
+        notify(); 
+    }
+
+    
+    public synchronized void consume() {
+        while (!hasData) {
+            try {
+                wait(); 
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        System.out.println("Consumed: " + data);
+        hasData = false;
+        notify(); 
+    }
+}
+
+
+class Producer extends Thread {
+    private SharedResource resource;
+
+    Producer(SharedResource resource) {
+        this.resource = resource;
+    }
+
+    public void run() {
+        for (int i = 1; i <= 5; i++) {
+            resource.produce(i);
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+class Consumer extends Thread {
+    private SharedResource resource;
+
+    Consumer(SharedResource resource) {
+        this.resource = resource;
+    }
+
+    public void run() {
+        for (int i = 1; i <= 5; i++) {
+            resource.consume();
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+
+public class InterThreadCommunicationDemo {
+    public static void main(String[] args) {
+        SharedResource resource = new SharedResource();
+
+        Producer p = new Producer(resource);
+        Consumer c = new Consumer(resource);
+
+        p.start();
+        c.start();
+    }
+}
+----------------------------------------------------------------------------------------------------------------------------
+15. Collections Framework
+Write a program that demonstrates the use of an ArrayList and LinkedList.
+import java.util.ArrayList;
+import java.util.LinkedList;
+
+public class ListDemo {
+    public static void main(String[] args) {
+       
+        ArrayList<String> arrayList = new ArrayList<>();
+        arrayList.add("Apple");
+        arrayList.add("Banana");
+        arrayList.add("Cherry");
+        arrayList.add("Date");
+
+        System.out.println("ArrayList elements:");
+        for (String fruit : arrayList) {
+            System.out.println(fruit);
+        }
+
+
+        arrayList.set(1, "Blueberry");
+        System.out.println("After modification (ArrayList): " + arrayList);
+
+
+        arrayList.remove(2);
+        System.out.println("After removal (ArrayList): " + arrayList);
+
+        System.out.println("--------------------------------");
+
+        
+        LinkedList<String> linkedList = new LinkedList<>();
+        linkedList.add("Dog");
+        linkedList.add("Cat");
+        linkedList.add("Elephant");
+        linkedList.add("Lion");
+
+        System.out.println("LinkedList elements:");
+        for (String animal : linkedList) {
+            System.out.println(animal);
+        }
+
+
+        linkedList.addFirst("Tiger");
+        linkedList.addLast("Zebra");
+        System.out.println("After adding first & last (LinkedList): " + linkedList);
+
+
+        linkedList.removeFirst();
+        linkedList.removeLast();
+        System.out.println("After removing first & last (LinkedList): " + linkedList);
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------
+Implement a program using HashSet to remove duplicate elements froma list.
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+public class RemoveDuplicatesUsingHashSet {
+    public static void main(String[] args) {
+        
+        List<String> names = new ArrayList<>();
+        names.add("Alice");
+        names.add("Bob");
+        names.add("Charlie");
+        names.add("Alice");   
+        names.add("David");
+        names.add("Bob");     
+
+        System.out.println("Original List with duplicates:");
+        System.out.println(names);
+
+        
+        Set<String> uniqueNames = new HashSet<>(names);
+
+        System.out.println("\nList after removing duplicates (using HashSet):");
+        System.out.println(uniqueNames);
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------
+Create a HashMap to store and retrieve key-value pairs.
+import java.util.HashMap;
+import java.util.Map;
+
+public class HashMapDemo {
+    public static void main(String[] args) {
+               HashMap<Integer, String> studentMap = new HashMap<>();
+
+      
+        studentMap.put(101, "Alice");
+        studentMap.put(102, "Bob");
+        studentMap.put(103, "Charlie");
+        studentMap.put(104, "David");
+
+        
+        System.out.println("Student HashMap: " + studentMap);
+
+        
+        System.out.println("Student with ID 102: " + studentMap.get(102));
+
+        
+        if (studentMap.containsKey(103)) {
+            System.out.println("Student with ID 103 exists: " + studentMap.get(103));
+        }
+
+       
+        if (studentMap.containsValue("Alice")) {
+            System.out.println("Alice is present in the map.");
+        }
+
+
+        System.out.println("\nIterating over HashMap:");
+        for (Map.Entry<Integer, String> entry : studentMap.entrySet()) {
+            System.out.println("ID: " + entry.getKey() + ", Name: " + entry.getValue());
+        }
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------
+16. Java Input/Output (I/O)
+Write a program to read input from the console using Scanner
+import java.util.Scanner;
+
+public class ScannerInputDemo {
+    public static void main(String[] args) {
+                Scanner sc = new Scanner(System.in);
+
+       
+        System.out.print("Enter your name: ");
+        String name = sc.nextLine();
+
+
+        System.out.print("Enter your age: ");
+        int age = sc.nextInt();
+
+        
+        System.out.print("Enter your marks: ");
+        double marks = sc.nextDouble();
+
+     
+        System.out.println("\n--- User Details ---");
+        System.out.println("Name: " + name);
+        System.out.println("Age: " + age);
+        System.out.println("Marks: " + marks);
+
+       
+        sc.close();
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------
+Implement a file copy program using FileInputStream and FileOutputStream.
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+public class FileCopyDemo {
+    public static void main(String[] args) {
+        FileInputStream fis = null;
+        FileOutputStream fos = null;
+
+        try {
+
+            String sourceFile = "source.txt";
+            String destFile = "destination.txt";
+
+            
+            fis = new FileInputStream(sourceFile);
+            fos = new FileOutputStream(destFile);
+
+            int byteData;
+            
+            while ((byteData = fis.read()) != -1) {
+                fos.write(byteData);
+            }
+
+            System.out.println("File copied successfully from " + sourceFile + " to " + destFile);
+        } 
+        catch (IOException e) {
+            System.out.println("Error during file copy: " + e.getMessage());
+        } 
+        finally {
+            try {
+                if (fis != null) fis.close();
+                if (fos != null) fos.close();
+            } catch (IOException e) {
+                System.out.println("Error closing files: " + e.getMessage());
+            }
+        }
+    }
+}
+-----------------------------------------------------------------------------------------------------------------------------Create a program that reads from one file and writes the content to another file
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
+public class FileReadWriteDemo {
+    public static void main(String[] args) {
+        FileReader reader = null;
+        FileWriter writer = null;
+
+        try {
+            
+            String sourceFile = "input.txt";
+            String destFile = "output.txt";
+
+            
+            reader = new FileReader(sourceFile);
+            writer = new FileWriter(destFile);
+
+            int charData;
+           
+            while ((charData = reader.read()) != -1) {
+                writer.write(charData);
+            }
+
+            System.out.println("File content copied from " + sourceFile + " to " + destFile);
+        } 
+        catch (IOException e) {
+            System.out.println("Error: " + e.getMessage());
+        } 
+        finally {
+            try {
+                if (reader != null) reader.close();
+                if (writer != null) writer.close();
+            } catch (IOException e) {
+                System.out.println("Error closing files: " + e.getMessage());
+            }
+        }
+    }
+}
+----------------------------------------------------------------------------------------------------------------------------
