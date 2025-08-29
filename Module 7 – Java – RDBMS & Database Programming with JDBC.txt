@@ -1,0 +1,115 @@
+package practice;
+
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
+
+public class JdbcPractise {
+
+	public static void main(String[] args) {
+		Connection conn= connectDb("jdbc:mysql://localhost:3306/employee_db","root","Anshuv@0711");
+		
+		fetchData(conn);
+		
+ 
+	}
+	   @SuppressWarnings("finally")
+	public static Connection connectDb(String url,String userName,String password) {
+		   
+		   Connection conn = null;
+	    	try {
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				 conn = DriverManager.getConnection(url,userName,password);
+			    System.out.println("Connection created");
+			    
+	    	} catch (ClassNotFoundException e) {
+				
+				e.printStackTrace();
+				
+			} catch (SQLException e) {
+				e.printStackTrace();
+				
+			}finally {
+		       return conn;
+			}
+	    }
+	   public static void createTable(Connection conn) {
+		   try {
+			PreparedStatement ps = conn.prepareStatement("CREATE TABLE `employee_personal_details` (\r\n"
+			   		+ "  `employee_id` int NOT NULL,\r\n"
+			   		+ "  `employee_name` varchar(25) NOT NULL,\r\n"
+			   		+ "  `city` varchar(25) NOT NULL,\r\n"
+			   		+ "  UNIQUE KEY `employee_id` (`employee_id`)\r\n"
+			   		+ ") ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;\r\n"
+			   		+ "");
+			ps.execute();
+		   } catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		   }
+	   }
+	   public static void insertTable(Connection conn)
+	   {
+		   try {
+			PreparedStatement ps= conn.prepareStatement("insert into employee_personal_details (employee_id,employee_name,city) values(?,?,?)");
+		  ps.setInt(1, 1);
+		  ps.setString(2, "Aman");
+		  ps.setString(3,"Gandhinagar");
+		  ps.execute();
+		  System.out.println("Data inserted");
+		   } catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		   }
+	   }
+	   public static void updateTable(Connection conn)
+	   {
+		   try {
+			PreparedStatement ps = conn.prepareStatement("update employee_personal_details Set employee_name = ? where employee_id= ?");
+			ps.setString(1,"Amaniya");
+			ps.setInt(2, 2);
+		    ps.execute();
+		    System.out.println("Data updated");
+		
+		   } catch (SQLException e) {
+			System.out.println("Data not updated");
+			e.printStackTrace();
+		   }
+		   
+	   }
+      public static void  fetchData(Connection conn)
+      {
+    	   Statement s;
+		  try {
+			s = conn.createStatement();
+			 ResultSet rs=  s.executeQuery("select * from employee_personal_details");
+			 Map<Integer,EmployeeDetails> detailEmployeeDetails = new HashMap<>();
+			 while(rs.next())
+			 {
+				 EmployeeDetails details = new EmployeeDetails(rs.getInt("employee_id") ,rs.getString("employee_name"),rs.getString("city"));
+				 detailEmployeeDetails.put(details.getId(),details);
+		    	  System.out.println("Data is here : " + rs.getInt("employee_id")+" "+ rs.getString("employee_name")+" "+rs.getString("city")); 
+			 }
+			 for(Map.Entry<Integer,EmployeeDetails> e : detailEmployeeDetails.entrySet())
+			 {
+				 System.out.println(e.getKey() +" : "+ e.getValue().getId() + e.getValue().getName() + e.getValue().getCity());
+			 }
+
+		  } catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		  }
+    	
+      }
+      
+}
+
